@@ -23,7 +23,7 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 
 // Connect to MongoDB
-dbConnect();
+await dbConnect();
 
 // Create a JWT token
 app.post('/jwt', async (req, res) => {
