@@ -28,7 +28,7 @@ router.get('/role/:email', async (req, res) => {
 });
 
 // post a user
-router.post('/', async (req, res) => {
+router.post('/post', async (req, res) => {
   try {
     // Check if email already exists
     const existingUser = await User.findOne({ email: req.body.email });
@@ -54,7 +54,7 @@ router.post('/', async (req, res) => {
 });
 
 // update a user
-router.patch('/:email', verifyToken, async (req, res) => {
+router.patch('update/:email', verifyToken, async (req, res) => {
   try {
     const email = req.params.email;
     const updatedUser = req.body;
