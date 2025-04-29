@@ -23,7 +23,20 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 
 // Connect to MongoDB
-await dbConnect();
+async function startServer() {
+  try {
+    await dbConnect();
+    // Start the server after successful DB connection
+    app.listen(port, () => {
+      console.log(`☘️  You successfully connected to Server: ${port}`);
+    });
+  } catch (err) {
+    console.error('Failed to start server:', err);
+    process.exit(1); // Exit if DB connection fails
+  }
+}
+
+startServer();
 
 // Create a JWT token
 app.post('/jwt', async (req, res) => {
@@ -70,8 +83,4 @@ app.use('/user', userHandler);
 // Default route
 app.get('/', (req, res) => {
   res.send('This Server For MyAwesomeApp Website ❤️');
-});
-
-app.listen(port, () => {
-  console.log(`☘️  You successfully connected to Server: ${port}`);
 });
